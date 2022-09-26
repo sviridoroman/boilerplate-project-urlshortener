@@ -42,39 +42,6 @@ app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-// app.post('/api/shorturl', async (req, res) => {
-//   let newUrl = req.body.url;
-
-//   if(validURL.isWebUri(newUrl)) {
-//     let foundedUrl = await UrlAddres.findOne({original_url: newUrl});
-//     if (foundedUrl){
-//       res.json({
-//         original_url: foundedUrl.original_url,
-//         short_url: foundedUrl.short_url
-//       })
-//     } else {
-//        UrlAddres.find()
-//        .then(url => {
-//         new UrlAddres({
-//           original_url: req.body.url,
-//           short_url: url.length + 1
-//         })
-//         .save()
-//         .then(
-//           res.json({
-//             original_url: req.body.url,
-//             short_url: url.length + 1
-//           })
-//         )
-//        })
-//     }
-//     } else {
-//       res.json({
-//         error: 'invalid URL'
-//       })
-//     }
-// });
-
 app.get('/api/shorturl/:selectedUrl?', async (req, res) => {
   if(parseInt(req.params.selectedUrl)){  
     let foundedUrl = await db.collection('urls').where('short_url', '==', (req.params.selectedUrl * 1)).get();
@@ -126,32 +93,4 @@ app.post('/api/shorturl', async (req, res) => {
       error: 'invalid URL'
       })
   }
-  // if(validURL.isWebUri(newUrl)) {
-  //   let foundedUrl = await UrlAddres.findOne({original_url: newUrl});
-  //   if (foundedUrl){
-  //     res.json({
-  //       original_url: foundedUrl.original_url,
-  //       short_url: foundedUrl.short_url
-  //     })
-  //   } else {
-  //      UrlAddres.find()
-  //      .then(url => {
-  //       new UrlAddres({
-  //         original_url: req.body.url,
-  //         short_url: url.length + 1
-  //       })
-  //       .save()
-  //       .then(
-  //         res.json({
-  //           original_url: req.body.url,
-  //           short_url: url.length + 1
-  //         })
-  //       )
-  //      })
-  //   }
-  //   } else {
-  //     res.json({
-  //       error: 'invalid URL'
-  //     })
-  //   }
 });
